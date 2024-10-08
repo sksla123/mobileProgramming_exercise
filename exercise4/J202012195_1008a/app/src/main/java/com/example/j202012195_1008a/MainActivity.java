@@ -68,6 +68,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        rdoDog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                imgPet.setImageResource(R.drawable.dog);
+            }
+        });
+
+        rdoCat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                imgPet.setImageResource(R.drawable.cat);
+            }
+        });
+
+        rdoRabbit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                imgPet.setImageResource(R.drawable.rabbit);
+            }
+        });
+
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
