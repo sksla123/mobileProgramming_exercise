@@ -55,11 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
         // 더하기 버튼 클릭 리스너 설정
         btnAdd.setOnClickListener(new View.OnClickListener() {
-            // 키보드 내리기 함수
-            hideKeyboard();
             // 클릭 이벤트 호출
             @Override
             public void onClick(View view){
+                // 키보드 내리기 함수
+                hideKeyboard();
+                
                 // 입력된 숫자를 가져온다.
                 inputNum1 = inputEdit1.getText().toString();
                 inputNum2 = inputEdit2.getText().toString();

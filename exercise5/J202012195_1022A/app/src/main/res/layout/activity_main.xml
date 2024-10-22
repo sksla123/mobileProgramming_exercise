@@ -8,8 +8,9 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <AnalogClock
+    <Chronometer
         android:id="@+id/textClock"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:format="시간 측정: %s" />
 </LinearLayout>

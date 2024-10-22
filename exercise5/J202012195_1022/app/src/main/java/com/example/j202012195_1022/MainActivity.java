@@ -1,7 +1,9 @@
 package com.example.j202012195_1022;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,7 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnAdd, btnSub, btnMul, btnDiv;
     TextView textResult;
-    Float result;
+    Double result;
+
+    private void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,30 +84,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if(edit1.isFocused()) {
-                        String tempText = edit1.getText().toString();
-                        String editText = tempText + numBtns[idx].getText().toString();
-                        try{
-                            Integer number = Integer.parseInt(tempText);
-                            editText = number.toString();
-                            edit1.setText(editText);
-                        }
-                        catch (NumberFormatException ex){
-                            Toast.makeText(getApplicationContext(), "숫자만 입력해주세요.", Toast.LENGTH_SHORT).show();
-                            edit1.setText(tempText);
-                        }
+                        // 기능 추가 마우스 selection 위치에 삽입하도록 설정
+                        edit1.getText().insert(edit1.getSelectionStart(), numBtns[idx].getText().toString());
                     }
                     else if (edit2.isFocused()) {
-                        String tempText = edit2.getText().toString();
-                        String editText = tempText + numBtns[idx].getText().toString();
-                        try{
-                            Integer number = Integer.parseInt(tempText);
-                            editText = number.toString();
-                            edit2.setText(editText);
-                        }
-                        catch (NumberFormatException ex){
-                            Toast.makeText(getApplicationContext(), "숫자만 입력해주세요.", Toast.LENGTH_SHORT).show();
-                            edit2.setText(tempText);
-                        }
+                        // 기능 추가 마우스 selection 위치에 삽입하도록 설정
+                        edit2.getText().insert(edit2.getSelectionStart(), numBtns[idx].getText().toString());
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "입력할 EditText를 선택하세요.", Toast.LENGTH_SHORT).show();
@@ -113,6 +102,103 @@ public class MainActivity extends AppCompatActivity {
         btnSub = (Button) findViewById(R.id.BtnSub);
         btnMul = (Button) findViewById(R.id.BtnMul);
         btnDiv = (Button) findViewById(R.id.BtnDiv);
+
+        // 더하기 버튼 클릭 리스너 설정
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            // 클릭 이벤트 호출
+            @Override
+            public void onClick(View view){
+                // 키보드 내리기 함수
+                hideKeyboard();
+
+                // 입력된 숫자를 가져온다.
+                num1 = edit1.getText().toString();
+                num2 = edit2.getText().toString();
+                try{
+                    // 정수 덧셈 실행 및 결과 출력
+                    Double tmpNum1 = Double.parseDouble(num1);
+                    Double tmpNum2 = Double.parseDouble(num2);
+                    result = tmpNum1 + tmpNum2;
+                    textResult.setText(String.format("%d + %d의 계산 결과: %.2f", (int)Math.round(tmpNum1), (int)Math.round(tmpNum2), result));
+                } catch(Exception e) {
+                    Toast.makeText(getApplicationContext(), "입력 오류입니다.", Toast.LENGTH_SHORT).show();
+                    textResult.setText("계산 결과: ");
+                }
+            }
+        });
+
+        // 빼기 버튼 클릭 리스너 설정
+        btnSub.setOnClickListener(new View.OnClickListener() {
+            // 클릭 이벤트 호출
+            @Override
+            public void onClick(View view){
+                // 키보드 내리기 함수
+                hideKeyboard();
+
+                // 입력된 숫자를 가져온다.
+                num1 = edit1.getText().toString();
+                num2 = edit2.getText().toString();
+                // 정수 빼기 실행 및 결과 출력
+                try {
+                    Double tmpNum1 = Double.parseDouble(num1);
+                    Double tmpNum2 = Double.parseDouble(num2);
+                    result = tmpNum1 - tmpNum2;
+                    textResult.setText(String.format("%d - %d의 계산 결과: %.2f", (int)Math.round(tmpNum1), (int)Math.round(tmpNum2), result));
+                } catch(Exception e) {
+                    Toast.makeText(getApplicationContext(), "입력 오류입니다.", Toast.LENGTH_SHORT).show();
+                    textResult.setText("계산 결과: ");
+                }
+            }
+        });
+
+        // 곱하기 버튼 클릭 리스너 설정
+        btnMul.setOnClickListener(new View.OnClickListener() {
+            // 클릭 이벤트 호출
+            @Override
+            public void onClick(View view){
+                // 키보드 내리기 함수
+                hideKeyboard();
+
+                // 입력된 숫자를 가져온다.
+                num1 = edit1.getText().toString();
+                num2 = edit2.getText().toString();
+                // 정수 곱하기 실행 및 결과 출력
+                try {
+                    Double tmpNum1 = Double.parseDouble(num1);
+                    Double tmpNum2 = Double.parseDouble(num2);
+                    result = tmpNum1 * tmpNum2;
+                    textResult.setText(String.format("%d * %d의 계산 결과: %.2f", (int)Math.round(tmpNum1), (int)Math.round(tmpNum2), result));
+                } catch(Exception e) {
+                    Toast.makeText(getApplicationContext(), "입력 오류입니다.", Toast.LENGTH_SHORT).show();
+                    textResult.setText("계산 결과: ");
+                }
+            }
+        });
+
+
+        // 나누기 버튼 클릭 리스너 설정
+        btnDiv.setOnClickListener(new View.OnClickListener() {
+            // 클릭 이벤트 호출
+            @Override
+            public void onClick(View view){
+                // 키보드 내리기 함수
+                hideKeyboard();
+
+                // 입력된 숫자를 가져온다.
+                num1 = edit1.getText().toString();
+                num2 = edit2.getText().toString();
+                // 정수 나누기 실행 및 결과 출력
+                try {
+                    Double tmpNum1 = Double.parseDouble(num1);
+                    Double tmpNum2 = Double.parseDouble(num2);
+                    result = tmpNum1 / tmpNum2;
+                    textResult.setText(String.format("%d * %d의 계산 결과: %.2f", (int)Math.round(tmpNum1), (int)Math.round(tmpNum2), result));
+                } catch(Exception e) {
+                    Toast.makeText(getApplicationContext(), "입력 오류입니다.", Toast.LENGTH_SHORT).show();
+                    textResult.setText("계산 결과: ");
+                }
+            }
+        });
 
         textResult = (TextView) findViewById(R.id.TextResult);
     }
