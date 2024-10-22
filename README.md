@@ -3,3 +3,4 @@
 
 ## 중간 시험 힌트
 1. 빠르게 레이아웃 캐치 (layout_weight, gravity 등)
+
