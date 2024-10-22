@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
         btnMul = (Button) findViewById(R.id.BtnMul);
         btnDiv = (Button) findViewById(R.id.BtnDiv);
 
+        textResult = (TextView) findViewById(R.id.TextResult);
+
         // 더하기 버튼 클릭 리스너 설정
         btnAdd.setOnClickListener(new View.OnClickListener() {
             // 클릭 이벤트 호출
@@ -114,15 +116,14 @@ public class MainActivity extends AppCompatActivity {
                 // 입력된 숫자를 가져온다.
                 num1 = edit1.getText().toString();
                 num2 = edit2.getText().toString();
+
                 try{
                     // 정수 덧셈 실행 및 결과 출력
-                    Double tmpNum1 = Double.parseDouble(num1);
-                    Double tmpNum2 = Double.parseDouble(num2);
-                    result = tmpNum1 + tmpNum2;
-                    textResult.setText(String.format("%d + %d의 계산 결과: %.2f", (int)Math.round(tmpNum1), (int)Math.round(tmpNum2), result));
+                    result = Double.parseDouble(num1) + Double.parseDouble(num2);
+                    textResult.setText(String.format("%s + %s = %f", num1, num2, result));
                 } catch(Exception e) {
                     Toast.makeText(getApplicationContext(), "입력 오류입니다.", Toast.LENGTH_SHORT).show();
-                    textResult.setText("계산 결과: ");
+                    textResult.setText("계산 결과 : ");
                 }
             }
         });
@@ -140,13 +141,11 @@ public class MainActivity extends AppCompatActivity {
                 num2 = edit2.getText().toString();
                 // 정수 빼기 실행 및 결과 출력
                 try {
-                    Double tmpNum1 = Double.parseDouble(num1);
-                    Double tmpNum2 = Double.parseDouble(num2);
-                    result = tmpNum1 - tmpNum2;
-                    textResult.setText(String.format("%d - %d의 계산 결과: %.2f", (int)Math.round(tmpNum1), (int)Math.round(tmpNum2), result));
+                    result = Double.parseDouble(num1) - Double.parseDouble(num2);
+                    textResult.setText(String.format("%s - %s = %f", num1, num2, result));
                 } catch(Exception e) {
                     Toast.makeText(getApplicationContext(), "입력 오류입니다.", Toast.LENGTH_SHORT).show();
-                    textResult.setText("계산 결과: ");
+                    textResult.setText("계산 결과 : ");
                 }
             }
         });
@@ -164,17 +163,14 @@ public class MainActivity extends AppCompatActivity {
                 num2 = edit2.getText().toString();
                 // 정수 곱하기 실행 및 결과 출력
                 try {
-                    Double tmpNum1 = Double.parseDouble(num1);
-                    Double tmpNum2 = Double.parseDouble(num2);
-                    result = tmpNum1 * tmpNum2;
-                    textResult.setText(String.format("%d * %d의 계산 결과: %.2f", (int)Math.round(tmpNum1), (int)Math.round(tmpNum2), result));
+                    result = Double.parseDouble(num1) * Double.parseDouble(num2);
+                    textResult.setText(String.format("%s * %s = %.2f", num1, num2, result));
                 } catch(Exception e) {
                     Toast.makeText(getApplicationContext(), "입력 오류입니다.", Toast.LENGTH_SHORT).show();
-                    textResult.setText("계산 결과: ");
+                    textResult.setText("계산 결과 : ");
                 }
             }
         });
-
 
         // 나누기 버튼 클릭 리스너 설정
         btnDiv.setOnClickListener(new View.OnClickListener() {
@@ -189,17 +185,20 @@ public class MainActivity extends AppCompatActivity {
                 num2 = edit2.getText().toString();
                 // 정수 나누기 실행 및 결과 출력
                 try {
-                    Double tmpNum1 = Double.parseDouble(num1);
-                    Double tmpNum2 = Double.parseDouble(num2);
-                    result = tmpNum1 / tmpNum2;
-                    textResult.setText(String.format("%d * %d의 계산 결과: %.2f", (int)Math.round(tmpNum1), (int)Math.round(tmpNum2), result));
+                    // divisionbyzero 에러 확인
+                    if (num2.equals("0")) {
+                        throw new ArithmeticException("0으로 나눌 수 없습니다."); // 명시적으로 예외를 발생시킴
+                    }
+                    result = Double.parseDouble(num1) / Double.parseDouble(num2);
+                    textResult.setText(String.format("%s / %s = %.2f", num1, num2, result));
+                } catch (ArithmeticException e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    textResult.setText("계산 결과 : ");
                 } catch(Exception e) {
                     Toast.makeText(getApplicationContext(), "입력 오류입니다.", Toast.LENGTH_SHORT).show();
-                    textResult.setText("계산 결과: ");
+                    textResult.setText("계산 결과 : ");
                 }
             }
         });
-
-        textResult = (TextView) findViewById(R.id.TextResult);
     }
 }
