@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabSong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="음악별" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabArtist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="가수별" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabAlbum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="앨범별" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView1"
+        android:name="com.example.j202012195_e06_01_fragments.BlankFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView2"
+        android:name="com.example.j202012195_e06_01_fragments.BlankFragment2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView3"
+        android:name="com.example.j202012195_e06_01_fragments.BlankFragment3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
